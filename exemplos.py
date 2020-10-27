@@ -6,20 +6,19 @@ import os
 import time
 
 
-#Tiuve que fazer esse métodozinho usando reg expressions pq o acento 'é' nao é estavel nos arquivos...
+#Usando reg expressions pq os nomes nao sao estaveis no jeux de données...
 def procurarExpressao(regExpr, string):
   return re.search(regExpr,string, flags=re.IGNORECASE) 
 
 
-#Exemplo de codigo para o CONE, achando as coordenadas das paradas, Parte 1, e fluxo de pessoas entre uma e outra, Parte 2...
-#Minha rota diaria: Notre-Dame <-> Condillac(Tram B)
-pointA ='NOTRE-DAME - MUS' #poderiam ser outras paradas como: PLAINE, HUBERT,...
+#Notre-Dame <-> Condillac(Tram B)
+pointA ='NOTRE-DAME - MUS' #PLAINE, HUBERT,...
 pointB = 'cea' #Alsace, CEA, condillac...
 
 
 #Parte 1
 print('----------PARTE 1----------')
-# Localizaçao de todas as paradas de bus, tram, e gares SNCF da regiao em formato JSON
+# Localizaçao de todas as paradas de bus, tram, e gares SNCF da regiao 
 locationURL = 'https://data.metromobilite.fr/api/findType/json?types=arret'
 
 uh = urllib.request.urlopen(locationURL)
@@ -46,11 +45,11 @@ for arrt in fs:
 #Parte 2 - frequencia do Tram B em 2016
 print('----------PARTE 2----------')
 #Se quiser baixar o arquivo Excel inteiro...
+baixar = False
 url = 'https://data.metropolegrenoble.fr/ckan/dataset/c59ebbee-7ccc-4a18-a4b4-d4d3bf4907c6/resource/8576e223-54c7-4b68-846d-5d115aafc012/download/'
 fileName = 'tram-b'
 extension='.xls'
 path = url+fileName
-baixar = True
 if baixar:    
     if not os.path.isfile(fileName+extension):
         downloadPath = path+extension
